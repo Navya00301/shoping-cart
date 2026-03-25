@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,32 +103,40 @@ font-weight:bold;
 
 <h2>Create Account</h2>
 
-<form>
+<form method="POST">
+    {% csrf_token %}
+        {% if messages %}
+        {% for message in messages %}
+            <div class="msg"{{message.tags}}>
+            {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
 
 <div class="input-box">
 <i class="fa fa-user"></i>
-<input type="text" placeholder="Full Name" required>
+<input type="text" name="username" placeholder="Full Name" required>
 </div>
 
 <div class="input-box">
 <i class="fa fa-envelope"></i>
-<input type="email" placeholder="Email" required>
+<input type="email" name="email" placeholder="Email" required>
 </div>
 
 <div class="input-box">
 <i class="fa fa-lock"></i>
-<input type="password" placeholder="Password" required>
+<input type="password" name="password" placeholder="Password" required>
 </div>
 
 <div class="input-box">
 <i class="fa fa-lock"></i>
-<input type="password" placeholder="Confirm Password" required>
+<input type="password" name="confirmpassword" placeholder="Confirm Password" required>
 </div>
 
 <button class="register-btn">Register</button>
 
 <div class="extra">
-<p>Already have an account? <a href="login.html">Login</a></p>
+<p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
 </div>
 
 </form>
@@ -136,3 +145,4 @@ font-weight:bold;
 
 </body>
 </html>
+

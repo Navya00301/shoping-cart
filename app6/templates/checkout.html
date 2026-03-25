@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
 <title>SkinAura Checkout</title>
 <header class="header">
     <a href="checkout.html">
-        <img src="images/skinauralogo.jpg" alt="SkinAura Logo" class="logo">
+        <img src="{% static 'images/skinauralogo.jpg' %}" alt="SkinAura Logo" class="logo">
     </a>
 </header>
 
@@ -317,7 +318,7 @@ flex-direction:column;
 
 <div class="product">
 <div class="product-info">
-<img src="images/lipbalm.jpg">
+<img src="{% static 'images/lipbalm.jpg' %}">
 <span>Lip Balm</span>
 </div>
 <span>$75</span>
@@ -325,7 +326,7 @@ flex-direction:column;
 
 <div class="product">
 <div class="product-info">
-<img src="images/micellarwater.jpg">
+<img src="{% static 'images/micellarwater.jpg' %}">
 <span>Micellar Water</span>
 </div>
 <span>$54</span>
@@ -347,12 +348,12 @@ flex-direction:column;
 <span>Total</span>
 <span>$129</span>
 </div>
-<a href="confirmation.html">
+<a href="{% url 'confirmation' %}">
 <button class="place-order">PLACE ORDER</button>
 </a>
 
 
-<a href="home-02.html">← Back to home</a>
+<a href="{% url 'home' %}">← Back to home</a>
 <!-- <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a> -->
 </div>
 

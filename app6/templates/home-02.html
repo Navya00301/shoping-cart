@@ -54,35 +54,35 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="home-02.html">Home</a>
+								<a href="#">Home</a>
 								
 							</li>
 							<li>
-					            <a href="login.html">Login</a>
+					            <a href="{% url 'login' %}">Login</a>
 				            </li>
 				            <li>
-					            <a href="register.html">Register</a>
+					            <a href="{% url 'register' %}">Register</a>
 				            </li>
 
 							<li>
-								<a href="product.html">Shop</a>
+								<a href="{% url 'product' %}">Shop</a>
 							</li>
 
-							<li class="label1" data-label1="new">
-								<a href="shoping-cart.html">Features</a>
-							</li>
+							<!-- <li class="label1" data-label1="new">
+								<a href="features.html">Features</a>
+							</li> -->
 
 							
 
 							<li>
-								<a href="about.html">About</a>
+								<a href="{% url 'about' %}">About</a>
 							</li>
 
 							<li>
-								<a href="contact.html">Contact</a>
+								<a href="{% url 'contact' %}">Contact</a>
 							</li>
 							<li>
-								<a href="checkout.html">Checkout</a>
+								<a href="{% url 'checkout' %}">Checkout</a>
 							</li>
 							<li>
 						</ul>
@@ -299,7 +299,7 @@
 <div class="slick1">
 
 <!-- Slide 1 -->
-<div class="item-slick1" style="background-image: url({% static 'images/skinaurabanner.jpg' %});">
+<div class="item-slick1" style="background-image: url({% static 'images/skinaurabanner.jpg' %});"> 
 <div class="container h-full">
 <div class="flex-col-l-m h-full p-t-100 p-b-30">
 
