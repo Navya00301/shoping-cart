@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from .models import Product
 def home(request):
     return render(request,'home-02.html')
 
@@ -20,7 +20,8 @@ def shopingcart(request):
     return render(request,'shoping-cart.html')
 
 def product(request):
-    return render(request,'product.html')
+    products =Product.objects.all()
+    return render(request,'product.html',{'products':products})
 
 def about(request):
     return render(request,'about.html')
@@ -87,3 +88,59 @@ def user_login(request):
             messages.error(request,"Invalid username or password")
             return redirect('login')
     return render(request,'login.html')
+
+from django.shortcuts import get_object_or_404
+
+def product_detail(request, id):
+    product = get_object_or_404(Product, id=id)
+    return render(request, 'product_detail.html', {'product': product})
+
+
+
+from django.shortcuts import render,redirect,get_object_or_404
+from .models import Product,Cart,Cartitem
+
+def add_to_cart(request,product_id):
+    product= get_object_or_404(Product,id=product_id)
+    cart, created= Cart.objects.get_or_create(user=request.user)
+
+    item, created = Cartitem.objects.get_or_create(
+        cart=cart,
+        product=product
+    )
+
+    if not created:
+        item.quantity +=1
+
+    item.save()
+    return redirect('cart')
+
+def update_cart_item(request,item_id):
+    item=get_object_or_404(
+        Cartitem,
+        id=item_id,
+        cart__user=request.user
+    )    
+
+    if request.method =="POST":
+        qty=int(request.POST.get('quantity',1))
+
+        if qty>0:
+            item.quantity=qty
+            item.save()
+        else:
+            item.delete()
+
+        return redirect('cart')
+def cart_view(request):
+    cart,created= Cart.objects.get_or_create(user=request.user)
+    cart_items= Cartitem.objects.filter(cart=cart)
+
+    return render(request, 'shoping-cart.html',{
+        'cart':cart,
+        'cart_items':cart_items
+    })
+def remove_item(request,id):
+    item=get_object_or_404(Cartitem,id=id)
+    item.delete()
+    return redirect('cart')

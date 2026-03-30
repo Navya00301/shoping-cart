@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Product Detail</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/util.css' %}">
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+<style>
+body {
+    background: #f5f6fa;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* NAVBAR */
+.navbar-custom {
+    background: #fff;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.navbar-custom a {
+    text-decoration: none;
+    color: #333;
+    margin: 0 15px;
+    font-weight: 500;
+}
+
+.navbar-custom a:hover {
+    color: #e63946;
+}
+
+.logo img {
+    width: 100px;
+}
+
+/* PRODUCT */
+.product-container {
+    max-width: 1100px;
+    margin: 60px auto;
+    display: flex;
+    gap: 60px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.product-image img {
+    width: 420px;
+    border-radius: 10px;
+}
+
+.product-details {
+    flex: 1;
+}
+
+.product-title {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.product-price {
+    font-size: 24px;
+    color: #e63946;
+    margin: 15px 0;
+}
+
+.product-description {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+/* BUTTONS */
+.button-group {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-cart {
+    background: #111;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 6px;
+    border: none;
+}
+
+.btn-buy {
+    background: #e63946;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 6px;
+    border: none;
+}
+
+.quantity-box input {
+    width: 60px;
+    margin: 10px 0;
+    padding: 5px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .product-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .navbar-custom {
+        flex-direction: column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar-custom">
+    <div class="logo">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'images/skinauralogo.jpg' %}">
+        </a>
+    </div>
+
+    <div>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'product' %}">Shop</a>
+        <a href="{% url 'cart' %}">Cart</a>
+        <a href="{% url 'login' %}">Login</a>
+    </div>
+</div>
+
+<!-- PRODUCT SECTION -->
+<div class="product-container">
+
+    <div class="product-image">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    </div>
+
+    <div class="product-details">
+        <h2 class="product-title">{{ product.name }}</h2>
+
+        <p class="product-price">$ {{ product.price }}</p>
+
+        <p class="product-description">{{ product.description }}</p>
+
+        <form method="POST" action="#">
+            {% csrf_token %}
+
+            <div class="quantity-box">
+                <label>Qty:</label>
+                <input type="number" name="quantity" value="1" min="1">
+            </div>
+
+            <div class="button-group">
+                <button type="submit" formaction="{% url 'add_to_cart' product.id %}" class="btn-buy">
+                    Add to Cart
+                </button>
+
+                <button type="submit" formaction="#" class="btn-buy">
+                    Buy Now
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
